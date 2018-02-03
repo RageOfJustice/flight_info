@@ -3,7 +3,7 @@ import "./style";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import ReactTooltip from "react-tooltip";
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 class Menu extends React.Component {
 	constructor(props){
@@ -40,35 +40,35 @@ class MenuList extends React.Component{
 	    const tooltipOpts = {disable: this.props.opened, effect: "solid", place: "right"};
 		return (
 			<nav className="MenuList">
-				<Link to="/map" data-tip="" data-for="map-tooltip" className={classnames("MenuList__link", {"_expanded": this.props.opened})}>
+				<NavLink activeClassName="_active" to="/map" data-tip="" data-for="map-tooltip" className={classnames("MenuList__link", {"_expanded": this.props.opened})}>
 					<span className="MenuList__icon"><i className="fa fa-2x fa-globe"></i></span>
 					<strong className="MenuList__link-text">
                         Карта
 					</strong>
 					<ReactTooltip {...tooltipOpts} id="map-tooltip">Карта</ReactTooltip>
-				</Link>
-				<Link to="/" data-tip="" data-for="list-tooltip" className={classnames("MenuList__link", {"_expanded": this.props.opened})}>
+				</NavLink>
+				<NavLink activeClassName="_active" to="/filter" data-tip="" data-for="list-tooltip" className={classnames("MenuList__link", {"_expanded": this.props.opened})}>
 					<span className="MenuList__icon"><i className="fa fa-2x fa-th-list"></i></span>
 					<strong className="MenuList__link-text">
                         Список самолётов
 					</strong>
 					<ReactTooltip {...tooltipOpts} id="list-tooltip">Список самолётов</ReactTooltip>
-				</Link>
-				<Link to="/plane" data-tip="" data-for="plane-tooltip" className={classnames("MenuList__link", {"_expanded": this.props.opened})}>
+				</NavLink>
+				<NavLink activeClassName="_active" to="/plane" data-tip="" data-for="plane-tooltip" className={classnames("MenuList__link", {"_expanded": this.props.opened})}>
 					<span className="MenuList__icon"><i className="fa fa-2x fa-plane"></i></span>
 					<strong className="MenuList__link-text">
                         Инфо о самолёте
 					</strong>
 					<ReactTooltip {...tooltipOpts} id="plane-tooltip">Инфо о самолёте</ReactTooltip>
-				</Link>
+				</NavLink>
 				<div className="Menu__separator"></div>
-				<Link to="/info" data-tip="" data-for="info-tooltip" className={classnames("MenuList__link", {"_expanded": this.props.opened})}>
+				<NavLink activeClassName="_active" to="/info" data-tip="" data-for="info-tooltip" className={classnames("MenuList__link", {"_expanded": this.props.opened})}>
 					<span className="MenuList__icon"><i className="fa fa-2x fa-info"></i></span>
 					<strong className="MenuList__link-text">
                         О программе
 					</strong>
 					<ReactTooltip {...tooltipOpts} id="info-tooltip">О программе</ReactTooltip>
-				</Link>
+				</NavLink>
 			</nav>
 		);
 	}

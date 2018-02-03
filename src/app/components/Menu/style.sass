@@ -3,7 +3,7 @@
 .Menu
   overflow: hidden
   width: 60px
-  padding: 10px
+  padding: 10px 0
   transition: width 0.5s
   will-change: width
   background-color: $menu-background
@@ -11,10 +11,10 @@
   &._opened
     width: 280px
   &__separator
-    margin: 5px 0
+    margin: 5px auto
     color: #8d8d8d
-    width: 100%
-    display: inline-block
+    width: calc(100% - 20px)
+    display: block
     border: 1px solid
 
 
@@ -25,6 +25,7 @@
   transition: transform 0.5s, color 0.3s
   width: 40px
   text-align: center
+  margin-bottom: 5px
   &:hover
     color: darken(gainsboro, 15%)
   &._rotated
@@ -33,6 +34,7 @@
     display: flex
     align-items: center
     justify-content: flex-end
+    padding: 0 10px
 
 .MenuList
   display: flex
@@ -44,10 +46,14 @@
     align-items: center
     width: 100%
     margin: 10px 0
+    padding: 10px 0
     color: $text-color
     text-decoration: none !important
     +transition(color)
-    &:hover
+    &._active
+      background: url("/assets/images/grad.gif")
+      color: white
+    &:hover:not(._active)
       color: lighten($text-color, 10%)
     &._expanded .MenuList__link-text
       opacity: 1
@@ -60,7 +66,7 @@
   &__icon
     flex-shrink: 0
     display: inline-block
-    width: 40px
+    width: 60px
     text-align: center
 
 

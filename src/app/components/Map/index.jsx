@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./style";
 import GoogleMapReact from "google-map-react";
-import {Link} from "react-router-dom";
+import MapPlane from "../MapPlane";
 import {Range, List} from "immutable";
 
 class Map extends React.Component {
@@ -42,30 +42,6 @@ class Map extends React.Component {
 
 	render() {
 		const moreThen100 = this.state.dividedPlanes.size > 1;
-		const id = this.props.match.params.id;
-		if(id){
-			const plane = this.props.filter.get("states").find(val => val.get(0) == id);
-			if(plane) {
-                const coords = {lat: plane.get(6), lng: plane.get(5)};
-                return (
-
-					<section className="Map">
-						<h3 className="Map__header">{`Самолет ICAO24 - ${id}`}</h3>
-						<div className="Map__body">
-							<GoogleMapReact bootstrapURLKeys={{
-                                key: "AIzaSyDkg9gT-qTmUxOUUoTzri1iGA5cQ_ouZAg"
-                            }}
-											defaultCenter={coords}
-											defaultZoom={this.props.zoom}
-							>
-								<MapPlane id={id} country={plane.get(2)} lat={coords.lat} lng={coords.lng}/>
-							</GoogleMapReact>
-						</div>
-					</section>
-                );
-            }
-		}
-
 		return (
 
 			<section className="Map">
@@ -133,27 +109,6 @@ Map.propTypes = {
 	center: PropTypes.object,
 	zoom: PropTypes.number,
 	filter: PropTypes.object.isRequired,
-};
-
-class MapPlane extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
-	render() {
-		return (
-			<Link to={`/plane/${this.props.id}`} className="MapPlane">
-				<i className="fa fa-plane fa-2x"></i>
-			</Link>
-		);
-	}
-}
-
-MapPlane.propTypes = {
-	lat: PropTypes.number.isRequired,
-	lng: PropTypes.number.isRequired,
-	id: PropTypes.string.isRequired,
-	country: PropTypes.string,
 };
 
 export default Map;

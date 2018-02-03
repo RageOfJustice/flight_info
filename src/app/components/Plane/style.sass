@@ -5,9 +5,13 @@
   position: relative
   &__submit
     +btn-reset
+  &__body
+    display: flex
+    flex-wrap: wrap
   &__input
     display: inline-block
     max-width: 150px
+    font-family: inherit
     padding: 1.25em 5px
     width: 100%
     border: 2px solid $text-color
@@ -15,8 +19,26 @@
     border-radius: 4px
     font-size: 14px
   &__table
+    border-collapse: collapse
+    max-width: 500px
+    margin-right: 10px
     th, td
       text-align: left
       padding: 5px 10px
-    tr
       border-bottom: 1px solid #F1F1F1
+    tr:hover
+      background-color: #e5e8ff
+
+  &__map
+    flex-grow: 1
+    border: 1px solid #394b78
+
+@media (max-width: 756px)
+  .Plane
+    &__table
+      margin: 0
+      width: 100%
+      overflow-x: auto
+    &__map
+      width: 100%
+      height: 400px

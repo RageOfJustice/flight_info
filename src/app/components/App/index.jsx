@@ -23,10 +23,7 @@ class App extends React.Component{
 				<Menu/>
 				<div className="App__content">
 					<Route exact path="/" render={() => <Redirect to="/map" />} />
-					<Switch>
-						<Route exact path="/map" component={Map} />
-						<Route path="/map/:id" component={Map} />
-					</Switch>
+					<Route path="/map" component={Map} />
 					<Route path="/map" component={Filter} />
 					<Switch>
 						<Route exact path="/plane" component={Plane} />
