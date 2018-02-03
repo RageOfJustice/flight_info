@@ -1,0 +1,35 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "indent": ["warn", "tab", {"SwitchCase": 1}],
+    "semi": ["warn","always", { "omitLastInOneLineBlock": true }],
+    "jsx-quotes": "warn",
+    "quotes": "warn",
+    "arrow-parens": ["warn", "as-needed"],
+    "no-var": "warn",
+    "object-shorthand": ["warn", "always", {"avoidQuotes": true}],
+    "prefer-arrow-callback": ["warn",  { "allowUnboundThis": false }],
+    "prefer-const": ["warn", {
+      "destructuring": "all",
+      "ignoreReadBeforeAssign": false
+    }],
+    "key-spacing": "warn",
+    "no-multi-spaces": "warn",
+    "arrow-body-style": "warn",
+    "arrow-spacing": "warn",
+//    "no-mixed-spaces-and-tabs": "warn",
+    "no-trailing-spaces": "warn",
+    "no-extra-label": "warn",
+    "no-multiple-empty-lines": "warn",
+    "brace-style": "warn",
+    "array-bracket-spacing": "warn",
+    "comma-spacing": "warn",
+    "no-use-before-define": "error"
+  }
+}

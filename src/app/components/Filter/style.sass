@@ -1,0 +1,70 @@
+@import "../../constants/constants"
+
+.Filter
+  +card(10px)
+
+.FilterElement
+  background-color: #fff
+  &__header
+    position: relative
+    padding-bottom: 10px
+    font-size: 16px
+    font-weight: bold
+    margin-bottom: 10px
+    &:after
+      content: ''
+      position: absolute
+      border-bottom: 2px solid #eaeaea
+      display: block
+      width: 74%
+      bottom: 0
+      left: 13%
+      right: 13%
+  &__footer
+    position: relative
+    padding-top: 10px
+    margin-top: 10px
+    display: flex
+    justify-content: flex-end
+    flex-wrap: wrap
+    &:after
+      content: ''
+      position: absolute
+      border-bottom: 2px solid #eaeaea
+      display: block
+      width: 74%
+      top: 0
+      left: 13%
+      right: 13%
+  &__body
+    &._columns
+      column-count: 5
+      column-gap: 20px
+      column-width: 200px
+      column-rule: gray solid 1px
+  &__group
+    margin-bottom: 10px
+  &__label
+    position: relative
+    padding-left: 25px
+    display: inline-flex
+    width: 100%
+    &:hover
+      background-color: #e5e8ff
+    input
+      position: absolute
+      left: 5px
+      top: 5px
+  &__submit
+    margin-right: 13%
+    +btn-reset
+    +btn-success
+  &__reset
+    +btn-reset
+
+
+
+@media (max-width: 767px)
+  .FilterElement__submit, .FilterElement__reset
+    width: 74%
+    margin: 0 auto

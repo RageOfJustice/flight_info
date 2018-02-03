@@ -1,0 +1,10 @@
+export default {
+	BY_COUNTRY: 2,
+	BY_GROUND: 8,
+	BY_SOURCE: 16,
+	BY_VERTICAL_RATE: 11,
+	BY_SPI: 15,
+	BY_BARO_ALT: 13,
+	BY_VELOCITY: 9,
+	BY_GEO_ALT: 7,
+};

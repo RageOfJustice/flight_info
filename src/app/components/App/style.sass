@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700|Ubuntu:400,700&subset=cyrillic')
+
+*, *::after, *::before
+  box-sizing: border-box
+
+.App
+  font-family: Ubuntu, Roboto, sans-serif
+  font-size: 16px
+  line-height: 1.5
+  overflow: hidden
+  height: 100vh
+  display: flex
+  background: url("/assets/images/grad.gif")
+  &__content
+    overflow: auto
+    padding: 20px
+    width: 100%
+
+@keyframes indicator
+  from
+    width: 0
+  to
+    width: 100%
+
+.ProgressIndicator
+  animation: indicator 10s ease 0s infinite
+  position: fixed
+  top: 0
+  left: 0
+  z-index: 10
+  height: 2px
+  background-image: linear-gradient(to right, rgba(220,221,225,1) 0%,rgba(113,128,147,0.96) 56%,rgba(39,60,117,0.92) 100%)
+

@@ -1,0 +1,67 @@
+@import "../../constants/constants"
+
+.Menu
+  overflow: hidden
+  width: 60px
+  padding: 10px
+  transition: width 0.5s
+  will-change: width
+  background-color: $menu-background
+  flex-shrink: 0
+  &._opened
+    width: 280px
+  &__separator
+    margin: 5px 0
+    color: #8d8d8d
+    width: 100%
+    display: inline-block
+    border: 1px solid
+
+
+.menu-link
+  will-change: transform
+  display: inline-block
+  color: gainsboro
+  transition: transform 0.5s, color 0.3s
+  width: 40px
+  text-align: center
+  &:hover
+    color: darken(gainsboro, 15%)
+  &._rotated
+    transform: rotateY(180deg)
+  &__wrapper
+    display: flex
+    align-items: center
+    justify-content: flex-end
+
+.MenuList
+  display: flex
+  flex-direction: column
+  overflow-y: auto
+  overflow-x: hidden
+  &__link
+    display: flex
+    align-items: center
+    width: 100%
+    margin: 10px 0
+    color: $text-color
+    text-decoration: none !important
+    +transition(color)
+    &:hover
+      color: lighten($text-color, 10%)
+    &._expanded .MenuList__link-text
+      opacity: 1
+  &__link-text
+    margin-left: 10px
+    white-space: nowrap
+    opacity: 0
+    +transition(opacity)
+    transition-delay: 0.2s
+  &__icon
+    flex-shrink: 0
+    display: inline-block
+    width: 40px
+    text-align: center
+
+
+

@@ -1,0 +1,22 @@
+@import "../../constants/constants"
+
+.Plane
+  +card()
+  position: relative
+  &__submit
+    +btn-reset
+  &__input
+    display: inline-block
+    max-width: 150px
+    padding: 1.25em 5px
+    width: 100%
+    border: 2px solid $text-color
+    margin-right: 5px
+    border-radius: 4px
+    font-size: 14px
+  &__table
+    th, td
+      text-align: left
+      padding: 5px 10px
+    tr
+      border-bottom: 1px solid #F1F1F1

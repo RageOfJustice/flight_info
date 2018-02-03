@@ -1,0 +1,16 @@
+@import "../../constants/constants"
+
+.AjaxLoading
+  display: flex
+  align-items: center
+  justify-content: center
+  width: 100%
+  height: 100%
+  z-index: 10
+  background-color: transparentize(white, 0.5)
+  &__element
+    display: inline-block
+    z-index: 20
+    background: url(/assets/images/ajax.gif) no-repeat center
+    width: 100px
+    height: 100px
