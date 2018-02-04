@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "./style";
 import VariantName from "../../constants/filterElementNames";
 import {Set} from "immutable";
+import classnames from "classnames";
 
 
 class Filter extends React.Component{
@@ -17,20 +18,20 @@ class Filter extends React.Component{
 
 	render(){
 
-		const {filter} = this.props;
+		const {filter} = this.props, filterKeys = filter.get("filterKeys", null);
 		return(
 
-				<section className="Filter">
-					{filter.getIn(["filterVariants","byCountry"]).size ? <FilterElement filterKeys={filter.get("filterKeys",null)} handleSubmit={this.props.filterByCountry} filterVariant={filter.getIn(["filterVariants","byCountry"])} filterVariantName={VariantName["byCountry"]} /> : null}
-					<div className="Filter__footer">
-						{/*<button type="submit" className="Filter__submit">Отправить</button>*/}
-					</div>
-				</section>
+			<section className="Filter">
+				{filter.getIn(["filterVariants", "byCountry"]).size ? <FilterElement viewType="_columns" sort={true} filterKeys={filterKeys} handleSubmit={this.props.filterByCountry} filterVariant={filter.getIn(["filterVariants", "byCountry"])} filterVariantName={VariantName["byCountry"]} /> : null}
+				{filter.getIn(["filterVariants", "bySpi"]).size ? <FilterElement viewType="_toggle" filterKeys={filterKeys} handleSubmit={this.props.filterBySpi} filterVariant={filter.getIn(["filterVariants", "bySpi"])} filterVariantName={VariantName["bySpi"]} /> : null}
+				<div className="Filter__footer">
+					{/*{this.props.filter.get("states").valueSeq().map((val,key)=> <span key={key}>{val}</span>)}*/}
+					{/*<button type="submit" className="Filter__submit">Отправить</button>*/}
+				</div>
+			</section>
 
 		);
 	}
-
-
 
 
 }
@@ -39,7 +40,6 @@ Filter.propTypes = {
 	filter: PropTypes.object.isRequired,
 	filterByCountry: PropTypes.func.isRequired,
 	filterBySpi: PropTypes.func.isRequired,
-	viewType: PropTypes.oneOf(["columns", "slider"])
 };
 
 class FilterElement extends React.Component{
@@ -73,22 +73,35 @@ class FilterElement extends React.Component{
 	}
 
 	__handleSubmit(event){
-        event.preventDefault();
-        this.props.handleSubmit(this.state.result.toArray());
+		event.preventDefault();
+		let variantType;
+		switch (this.props.viewType){
+			case "_columns": variantType = "STRING"; break;
+			case "_toggle": variantType = "BOOLEAN"; break;
+			case "_slider": variantType = "RANGE"; break;
+		}
+		this.props.handleSubmit(this.state.result.toArray(), variantType);
 	}
 
 	render(){
-		const variant = this.props.filterVariant.toArray();
+		const variant = this.props.sort ? this.props.filterVariant.sort().valueSeq() : this.props.filterVariant.valueSeq();
 		return (
 			<form onSubmit={this.__handleSubmit} className="FilterElement">
 				<h5 className="FilterElement__header">{this.props.filterVariantName}</h5>
-				<div className="FilterElement__body _columns">
-					{variant.map((val, key) => (<div key={key} className="FilterElement__group"><label className="FilterElement__label"><input onChange={this.__handleCheck} defaultChecked={this.props.filterKeys && this.props.filterKeys.has(val)} type="checkbox" value={val} />{val}</label></div>))}
+				<div className={classnames("FilterElement__body", this.props.viewType)}>
+					{variant.map((val, key) =>
+						(<div key={key} className="FilterElement__group">
+							<label className="FilterElement__label">
+								<input onChange={this.__handleCheck} defaultChecked={this.props.filterKeys && this.props.filterKeys.has(val)} type="checkbox" value={val} />
+								{typeof val === "boolean" ? val ? "Да" : "Нет" : val}
+								</label>
+						</div>)
+					)}
 				</div>
-                <div className="FilterElement__footer">
+				<div className="FilterElement__footer">
 					<button onClick={this.__handleReset} type="reset" className="FilterElement__reset">Сбросить</button>
-                    <button type="submit" className="FilterElement__submit">Отправить</button>
-                </div>
+					<button type="submit" className="FilterElement__submit">Отправить</button>
+				</div>
 			</form>
 		);
 	}
@@ -96,11 +109,17 @@ class FilterElement extends React.Component{
 
 }
 
+FilterElement.defaultProps = {
+	sort: false,
+};
+
 FilterElement.propTypes = {
 	handleSubmit: PropTypes.func.isRequired,
 	filterVariant: PropTypes.object.isRequired,
 	filterVariantName: PropTypes.string.isRequired,
-	filterKeys: PropTypes.object
+	filterKeys: PropTypes.object,
+	sort: PropTypes.bool,
+	viewType: PropTypes.oneOf(["_columns", "_slider", "_toggle"])
 };
 
 

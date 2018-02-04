@@ -81,11 +81,13 @@ class Map extends React.Component {
 		    	const currentIndex = oldState.currentIndex < chunks.size ? oldState.currentIndex : 0;
 				return ({
 					dividedPlanes: chunks,
-					planes: chunks.get(currentIndex).valueSeq().map((state, index) =>
-						<MapPlane key={index} id={state.get(0)} country={state.get(2)} lat={state.get(6)} lng={state.get(5)}/>
-					),
+					planes: chunks.get(currentIndex).valueSeq().map((state, index) => (<MapPlane key={index} id={state.get(0)} country={state.get(2)} lat={state.get(6)} lng={state.get(5)}/>)),
 					currentIndex
 				});
+			});
+		} else {
+			this.setState({
+				planes: new List()
 			});
 		}
 	}

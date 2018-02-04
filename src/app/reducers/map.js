@@ -3,6 +3,16 @@ import Indexes from "../constants/filterMapToIndex";
 
 import {Record, Map, Set, List} from "immutable";
 
+const TypesEnum = {
+	BOOLEAN: "BOOLEAN",
+	RANGE: "RANGE",
+	STRING: "STRING"
+};
+
+const VariantType = Record({
+	values: null,
+	type: ""
+});
 
 const FilterVariants = Record({
 	byCountry: new Set(),
@@ -27,7 +37,25 @@ const MapVector = Record({
 	filter: new Filter()
 });
 
-function reFilter(state) {
+function subFilter(states, action, variantType) {
+	if (states.size) {
+		const values = variantType.get("values");
+		if(values.size){
+			switch (variantType.get("type")){
+				case TypesEnum.RANGE:
+					return states.filter(state => state.get(Indexes[action]) >= values.get(0) && state.get(Indexes[action]) <= values.get(1));
+				case TypesEnum.BOOLEAN:
+					// noinspection EqualityComparisonWithCoercionJS
+					return states.filter(state => state.get(Indexes[action]) === ("true" ==values.get(0)));
+				case TypesEnum.STRING:
+					return states.filter(state => values.includes(state.get(Indexes[action])));
+			}
+		}
+	}
+	return states;
+}
+
+function reFilter(state, action) {
 	const filter = state.get("filter").asMutable();
 	const byCountry = new Set().asMutable(),
 		bySpi = new Set().asMutable(),
@@ -60,14 +88,15 @@ function reFilter(state) {
 			byGeoAlt: byGeoAlt.asImmutable()
 		});
 		filter.set("filterVariants", filterVariants);
-		const keys = filter.get("filterKeys");
+		let keys = filter.get("filterKeys");
+		if(action){
+			keys = keys.delete(action.type);
+		}
 		if (keys.size) {
-			keys.forEach((list, key) => {
-				states = states.filter(state => list.includes(state.get(Indexes[key])));
+			keys.forEach((variantType, key) => {
+				states = subFilter(states, key, variantType);
 			});
 		}
-
-
 	}
 	filter.set("states", states.sort((a, b) => {
 		if (a.get(0) < b.get(0)) {
@@ -84,20 +113,17 @@ function reFilter(state) {
 }
 
 function handleFilter(state, action) {
-	const filter = state.get("filter").asMutable();
-	const list = new Set(action.filter);
+	const filter = reFilter(state, action).get("filter").asMutable();
+	const list = new VariantType({
+		values: new List(action.filter),
+		type: action.variantType
+	});
 	if (!action.filter.length) {
 		filter.deleteIn(["filterKeys", action.type]);
 	} else {
 		filter.setIn(["filterKeys", action.type], list);
 	}
-	const states = state.getIn(["vector", "states"], []);
-	if (!state.get("isFetching") && states.size) {
-		list.size ?
-			filter.set("states", states.filter(state => list.includes(state.get(Indexes[action.type])))) :
-			filter.set("states", states);
-	}
-
+	filter.set("states", subFilter(filter.get("states", new List()), action.type, list));
 	return state.set("filter", filter.asImmutable());
 }
 

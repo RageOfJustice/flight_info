@@ -1,17 +1,19 @@
 import ActionTypes from "../constants/ActionTypes";
 
 
-export function filterByCountry(countries) {
+export function filterByCountry(countries, variantType) {
 	return {
 		type: ActionTypes.FILTER.BY_COUNTRY,
-		filter: countries
+		filter: countries,
+		variantType
 	};
 }
 
-export function filterBySpi(spi) {
+export function filterBySpi(spi, variantType) {
 	return {
 		type: ActionTypes.FILTER.BY_SPI,
-		filter: spi
+		filter: spi,
+		variantType
 	};
 }
 

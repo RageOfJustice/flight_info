@@ -8,11 +8,11 @@ const mapStateToProps = state => ({
 	filter: state.getIn(["map", "filter"])
 });
 const mapDispatchToProps = dispatch => ({
-	filterByCountry: countries => {
-		dispatch(filterByCountry(countries));
+	filterByCountry: (countries, variantType) => {
+		dispatch(filterByCountry(countries, variantType));
 	},
-	filterBySpi: spi => {
-		dispatch(filterBySpi(spi));
+	filterBySpi: (spi, variantType) => {
+		dispatch(filterBySpi(spi, variantType));
 	}
 });
 

@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import "./style";
 import AjaxLoading from "../AjaxLoading";
 import planeOptions from "../../constants/planeOptions";
-import {Link} from "react-router-dom";
 import InputMask from "react-input-mask";
 import ReactTooltip from "react-tooltip";
 import GoogleMapReact from "google-map-react";
@@ -13,9 +12,14 @@ import MapPlane from "../MapPlane";
 class Plane extends React.Component {
 	constructor(props) {
 		super(props);
-		const id = this.props.match.params.id;
+		let id;
+		if(this.props.match.params.id ){
+			id = this.props.match.params.id;
+		} else {
+			id = this.props.plane.getIn(["info", "states"]) ? this.props.plane.getIn(["info", "states", 0, 0]): "";
+		}
 		this.state = {
-			search: id ? id : "",
+			search: id,
 			failValidate: false
 		};
 		this.__getPlaneData = this.__getPlaneData.bind(this);
