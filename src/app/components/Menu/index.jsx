@@ -47,13 +47,13 @@ class MenuList extends React.Component{
 					</strong>
 					<ReactTooltip {...tooltipOpts} id="map-tooltip">Карта</ReactTooltip>
 				</NavLink>
-				<NavLink activeClassName="_active" to="/filter" data-tip="" data-for="list-tooltip" className={classnames("MenuList__link", {"_expanded": this.props.opened})}>
+				{/*<NavLink activeClassName="_active" to="/filter" data-tip="" data-for="list-tooltip" className={classnames("MenuList__link", {"_expanded": this.props.opened})}>
 					<span className="MenuList__icon"><i className="fa fa-2x fa-th-list"></i></span>
 					<strong className="MenuList__link-text">
                         Список самолётов
 					</strong>
 					<ReactTooltip {...tooltipOpts} id="list-tooltip">Список самолётов</ReactTooltip>
-				</NavLink>
+				</NavLink>*/}
 				<NavLink activeClassName="_active" to="/plane" data-tip="" data-for="plane-tooltip" className={classnames("MenuList__link", {"_expanded": this.props.opened})}>
 					<span className="MenuList__icon"><i className="fa fa-2x fa-plane"></i></span>
 					<strong className="MenuList__link-text">

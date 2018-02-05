@@ -29,7 +29,7 @@ class App extends React.Component{
 						<Route exact path="/plane" component={Plane} />
 						<Route path="/plane/:id" component={Plane} />
 					</Switch>
-					<Route path="/filter" component={Filter}/>
+					{/*<Route path="/filter" component={Filter}/>*/}
 				</div>
 				<ProgressIndicator show={this.state.showProgress} />
 			</div>

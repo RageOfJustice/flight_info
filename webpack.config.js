@@ -1,7 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 let NODE_ENV = process.env.NODE_ENV || "development";
-
+NODE_ENV = "production";
 
 function addHash(tmp, hashname) {
 	return NODE_ENV === "production" ?
