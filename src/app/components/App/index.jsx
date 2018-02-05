@@ -5,6 +5,7 @@ import Menu from "../Menu";
 import Map from "../../containers/MapContainer";
 import Plane from "../../containers/PlaneContainer";
 import Filter from "../../containers/FilterContainer";
+import Info from "../Info";
 import PropTypes from "prop-types";
 
 
@@ -30,6 +31,8 @@ class App extends React.Component{
 						<Route path="/plane/:id" component={Plane} />
 					</Switch>
 					{/*<Route path="/filter" component={Filter}/>*/}
+					<Route path="/info" component={Info} />
+
 				</div>
 				<ProgressIndicator show={this.state.showProgress} />
 			</div>
